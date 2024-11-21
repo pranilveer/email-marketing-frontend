@@ -43,6 +43,15 @@ const FlowChart = () => {
     }
   };
 
+  const onNodeClick = useCallback((event, node) => {
+    const confirmDelete = window.confirm(`Delete node ${node.data.label}?`);
+    if (confirmDelete) {
+      setNodes((nds) => nds.filter((n) => n.id !== node.id));
+      setEdges((eds) => eds.filter((edge) => edge.source !== node.id && edge.target !== node.id));
+    }
+  }, []);
+  
+
   return (
     <div style={{ height: "100vh" }}>
       <div>
@@ -56,6 +65,7 @@ const FlowChart = () => {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onNodeClick={onNodeClick}
         fitView
       >
         <Controls />
