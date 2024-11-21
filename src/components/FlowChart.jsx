@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import ReactFlow, { addEdge, Background, Controls } from "react-flow-renderer";
 import axios from "axios";
+import "./FlowChart.css";
 
 const initialNodes = [
   { id: "1", data: { label: "Start" }, position: { x: 250, y: 5 } },
@@ -53,7 +54,7 @@ const FlowChart = () => {
   
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div className="container">
       <div>
         <button onClick={() => addNode("Cold Email")}>Add Cold Email</button>
         <button onClick={() => addNode("Wait/Delay")}>Add Wait/Delay</button>
