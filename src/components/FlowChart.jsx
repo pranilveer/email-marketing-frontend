@@ -23,8 +23,22 @@ const FlowChart = () => {
     []
   );
 
+  const addNode = (type) => {
+    const newNode = {
+      id: `${nodes.length + 1}`,
+      data: { label: type },
+      position: { x: Math.random() * 400, y: Math.random() * 400 },
+    };
+    setNodes((nds) => [...nds, newNode]);
+  };
+
   return (
     <div style={{ height: "100vh" }}>
+      <div>
+        <button onClick={() => addNode("Cold Email")}>Add Cold Email</button>
+        <button onClick={() => addNode("Wait/Delay")}>Add Wait/Delay</button>
+        <button onClick={() => addNode("Lead Source")}>Add Lead Source</button>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
