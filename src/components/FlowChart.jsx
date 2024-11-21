@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import ReactFlow, { addEdge, Background, Controls } from "react-flow-renderer";
+import axios from "axios";
 
 const initialNodes = [
   { id: "1", data: { label: "Start" }, position: { x: 250, y: 5 } },
@@ -32,6 +33,16 @@ const FlowChart = () => {
     setNodes((nds) => [...nds, newNode]);
   };
 
+  const saveFlowchart = async () => {
+    const flowchartData = { nodes, edges };
+    try {
+      await axios.post("http://localhost:5000/api/flowchart", flowchartData);
+      alert("Flowchart saved successfully!");
+    } catch (error) {
+      console.error("Error saving flowchart:", error);
+    }
+  };
+
   return (
     <div style={{ height: "100vh" }}>
       <div>
@@ -50,6 +61,7 @@ const FlowChart = () => {
         <Controls />
         <Background />
       </ReactFlow>
+      <button onClick={saveFlowchart}>Save Flowchart</button>
     </div>
   );
 };
