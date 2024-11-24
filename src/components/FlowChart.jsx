@@ -4,7 +4,7 @@ import axios from "axios";
 import "./FlowChart.css";
 
 const initialNodes = [
-  { id: "1", data: { label: "Start" }, position: { x: 250, y: 5 } },
+  { id: "1", type: "cold-email", data: { label: "Send Cold Email" }, position: { x: 100, y: 100 } },
 ];
 
 const FlowChart = () => {
@@ -28,6 +28,7 @@ const FlowChart = () => {
   const addNode = (type) => {
     const newNode = {
       id: `${nodes.length + 1}`,
+      type: type.toLowerCase().replace(/ /g, "-"), 
       data: { label: type },
       position: { x: Math.random() * 400, y: Math.random() * 400 },
     };
@@ -37,8 +38,8 @@ const FlowChart = () => {
   const saveFlowchart = async () => {
     const flowchartData = { nodes, edges };
     try {
-      await axios.post("http://localhost:5000/api/flowchart", flowchartData);
-      alert("Flowchart saved successfully!");
+      const response = await axios.post("http://localhost:5000/api/flowchart/save", flowchartData);
+      alert(response.data.message); 
     } catch (error) {
       console.error("Error saving flowchart:", error);
     }
@@ -51,7 +52,6 @@ const FlowChart = () => {
       setEdges((eds) => eds.filter((edge) => edge.source !== node.id && edge.target !== node.id));
     }
   }, []);
-  
 
   return (
     <div className="container">
