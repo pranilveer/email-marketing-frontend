@@ -38,12 +38,14 @@ const FlowChart = () => {
   const saveFlowchart = async () => {
     const flowchartData = { nodes, edges };
     try {
-      const response = await axios.post("http://localhost:5000/api/flowchart/save", flowchartData);
+      const response = await axios.post("https://email-marketing-backend-s5rc.onrender.com/", flowchartData);
       alert(response.data.message); 
     } catch (error) {
       console.error("Error saving flowchart:", error);
     }
   };
+  
+//http://localhost:5000/api/flowchart/save
 
   const onNodeClick = useCallback((event, node) => {
     const confirmDelete = window.confirm(`Delete node ${node.data.label}?`);
